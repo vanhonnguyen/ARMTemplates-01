@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "metricAlerts_arm_CPU_GT_85_name": {
+            "defaultValue": "arm-CPU-GT-85",
+            "type": "String"
+        },
+        "actiongroups_mon_01_externalid": {
+            "defaultValue": "",
+            "type": "String"
+        },
+        "scopes": {
+            "defaultValue":  [
+                "/subscriptions/abcd-test01/resourceGroups/test01",
+                "/subscriptions/abcd-test02/resourceGroups/test02",
+                "/subscriptions/abcd-test03/resourceGroups/test03"
+            ],
+            "type": "Array"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Insights/metricAlerts",
+            "apiVersion": "2018-03-01",
+            "name": "[parameters('metricAlerts_arm_CPU_GT_85_name')]",
+            "location": "global",
+            "properties": {
+                "description": "This is an ARM test for CPU GT 85 pct",
+                "severity": 3,
+                "enabled": true,
+                "scopes": "[parameters('scopes')]",
+                "evaluationFrequency": "PT5M",
+                "windowSize": "PT5M",
+                "criteria": {
+                    "allOf": [
+                        {
+                            "threshold": 85,
+                            "name": "Metric1",
+                            "metricNamespace": "microsoft.compute/virtualmachines",
+                            "metricName": "Percentage CPU",
+                            "dimensions": [],
+                            "operator": "GreaterThan",
+                            "timeAggregation": "Average",
+                            "criterionType": "StaticThresholdCriterion"
+                        }
+                    ],
+                    "odata.type": "Microsoft.Azure.Monitor.MultipleResourceMultipleMetricCriteria"
+                },
+                "autoMitigate": true,
+                "targetResourceType": "Microsoft.Compute/virtualMachines",
+                "targetResourceRegion": "australiaeast",
+                "actions": [
+                    {
+                        "actionGroupId": "[parameters('actiongroups_mon_01_externalid')]",
+                        "webHookProperties": {}
+                    }
+                ]
+            }
+        }
+    ]
+}
