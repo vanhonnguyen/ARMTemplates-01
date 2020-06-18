@@ -7,7 +7,7 @@
             "type": "String"
         },
         "actiongroups_mon_01_externalid": {
-            "defaultValue": "",
+            "defaultValue": "/subscriptions/abcd-test/resourceGroups/abcd-test/providers/microsoft.insights/actiongroups/abcd-test",
             "type": "String"
         },
         "scopes": {
