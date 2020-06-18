@@ -3,7 +3,7 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "actiongroups_mon_01_externalid": {
-            "value": null
+            "value": "test"
        },
         "scopes": {
             "value": null
