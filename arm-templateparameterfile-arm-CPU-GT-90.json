@@ -6,7 +6,7 @@
             "value": "test"
        },
         "scopes": {
-            "value": "test"
+            "value": ["test1","test2"]
         }
     }
 }
